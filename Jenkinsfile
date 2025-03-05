@@ -26,6 +26,7 @@ pipeline {
             }
         }
 
+
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
@@ -33,6 +34,19 @@ pipeline {
                 }
             }
         }
+
+        stage ('Pushing to Nexus Repo') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
+                    sh """
+                    mvn deploy
+                    """
+}
+                }
+            }
+        }
+
         
 
 
