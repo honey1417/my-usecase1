@@ -27,31 +27,46 @@ pipeline {
         }
 
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('SonarQube') {
-        //             sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
+                }
+            }
+        }
 
-         stage('Deploy to Nexus Repo') {
+        // stage('Deploy to Nexus Repo') {
+        //     steps {
+        //         script {
+        //         //     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
+        //         //         sh '''
+        //         //         mvn deploy \
+        //         //           -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
+        //         //           -Dnexus.username=${NEXUS_USR} \
+        //         //           -Dnexus.password=${NEXUS_PSW} \
+        //         //           -DskipTests
+        //         //         '''
+        //         //    }
+        //        }
+        }
+
+        stage('Deploy to Nexus Repo') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
                         sh '''
                         mkdir -p /var/lib/jenkins/.m2
                         cat > /var/lib/jenkins/.m2/settings.xml <<EOF
-                        <settings>
-                            <servers>
-                                <server>
-                                    <id>my-usecase1-snapshot</id>
-                                    <username>${NEXUS_USR}</username>
-                                    <password>${NEXUS_PSW}</password>
-                                </server>
-                            </servers>
-                        </settings>
-                        EOF
+<settings>
+    <servers>
+        <server>
+            <id>my-usecase1-snapshot</id>
+            <username>${NEXUS_USR}</username>
+            <password>${NEXUS_PSW}</password>
+        </server>
+    </servers>
+</settings>
+EOF
 
                         mvn deploy \
                           -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
@@ -62,4 +77,3 @@ pipeline {
             }
         }
     }
-}
