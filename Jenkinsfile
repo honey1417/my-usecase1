@@ -27,11 +27,11 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo "
                 }
             }
         }
-        
+
 
 
     }
