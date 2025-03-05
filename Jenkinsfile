@@ -38,17 +38,36 @@ pipeline {
         stage('Deploy to Nexus Repo') {
             steps {
                 script {
+                //     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
+                //         sh '''
+                //         mvn deploy \
+                //           -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
+                //           -Dnexus.username=${NEXUS_USR} \
+                //           -Dnexus.password=${NEXUS_PSW} \
+                //           -DskipTests
+                //         '''
+                //    }
                     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
-                        sh '''
-                        mvn deploy \
-                          -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
-                          -Dnexus.username=${NEXUS_USR} \
-                          -Dnexus.password=${NEXUS_PSW} \
-                          -DskipTests
-                        '''
-                   }
-               }
-           }
-        }
+                        sh """
+                        mkdir -p /var/lib/jenkins/.m2
+                        cat > /var/lib/jenkins/.m2/settings.xml <<EOF
+                        <settings>
+                        <servers>
+                            <server>
+                            <id>nexus</id>
+                            <username>${NEXUS_USR}</username>
+                            <password>${NEXUS_PSW}</password>
+                            </server>
+                        </servers>
+                        </settings>
+                        EOF
+
+                        mvn deploy -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ -DskipTests
+                        """
+                    }
+
+                }
+            }
+         }
     }
 }
