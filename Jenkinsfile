@@ -40,6 +40,8 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
                     sh """
+                    echo "Nexus user: ${NEXUS_USR}"
+                    echo "Nexus password: ${NEXUS_PSW}" | sed 's/./*/g'
                     mvn clean deploy -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
                     """
                     }
