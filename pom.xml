@@ -39,7 +39,7 @@
             <url>http://34.72.222.210:8081/repository/my-usecase1-release/</url>
         </repository>
         <snapshotRepository>
-            <id>my-usecase1-snapshot</id>
+            <id>nexus</id>
             <name>Snapshot Repos</name>
             <url>http://34.72.222.210:8081/repository/my-usecase1-snapshot/</url>
         </snapshotRepository>
