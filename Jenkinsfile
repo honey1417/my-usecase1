@@ -27,41 +27,28 @@ pipeline {
         }
 
 
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
-                }
-            }
-        }
-        stage ('Pushing to Nexus Repo') {
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('SonarQube') {
+        //             sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
+        //         }
+        //     }
+        // }
+
+        stage ('Deploy to Nexus Repo') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
+                        def MAVEN_HOME = tool 'maven'  // This gets the Maven installation path
+                        def settingsFile = "${MAVEN_HOME}/conf/settings.xml"
                         sh """
-                        sudo /opt/maven/bin/mvn clean deploy --settings /opt/maven/conf/settings.xml \
+                        ${MAVEN_HOME}/bin/mvn clean deploy --settings ${settingsFile} \
                         -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
                         -Dusername=${NEXUS_USR} -Dpassword=${NEXUS_PSW}
                         """
-                    }
-                }
-            }
+                   }
+               }
+           }
         }
-
-        // stage ('Deploy to Nexus Repo') {
-        //     steps {
-        //         script {
-        //             withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
-        //                 def MAVEN_HOME = tool 'maven'  // This gets the Maven installation path
-        //                 def settingsFile = "${MAVEN_HOME}/conf/settings.xml"
-        //                 sh """
-        //                 ${MAVEN_HOME}/bin/mvn clean deploy --settings ${settingsFile} \
-        //                 -DaltDeploymentRepository=my-usecase1-snapshot::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ \
-        //                 -Dusername=${NEXUS_USR} -Dpassword=${NEXUS_PSW}
-        //                 """
-        //            }
-        //        }
-        //    }
-        // }
     }
 }
