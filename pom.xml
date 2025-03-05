@@ -41,7 +41,7 @@
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot Repos</name>
-            <url>http://http://34.72.222.210:8081/repository/first-snapshot/</url>
+            <url>http://34.72.222.210:8081/repository/my-usecase1-snapshot/</url>
         </snapshotRepository>
     </distributionManagement>
 
