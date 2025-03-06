@@ -1,6 +1,7 @@
 pipeline {
     agent any 
     environment {
+        DOCKER_HUB_USR = "harshini1402"
         SONARQUBE_URL = "http://35.184.36.107:9000/"
         SONARQUBE_TOKEN = credentials ('sonar-token')
         GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-creds')
