@@ -27,27 +27,36 @@ pipeline {
         }
 
 
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('SonarQube') {
+        //             sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-jenkins-demo -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}"
+        //         }
+        //     }
+        // }
 
-        stage('Deploy to Nexus Repo') {
-            steps {
-                script {
-                     withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
-                       //sh "mvn deploy -DaltDeploymentRepository=nexus::default::http://34.72.222.210:8081/repository/my-usecase1-release/  -DskipTests -X" (for release)
-                       sh" mvn deploy -DaltDeploymentRepository=nexus::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ -DskipTests -X" //for snapshot
+        // stage('Deploy to Nexus Repo') {
+        //     steps {
+        //         script {
+        //              withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
+        //                //sh "mvn deploy -DaltDeploymentRepository=nexus::default::http://34.72.222.210:8081/repository/my-usecase1-release/  -DskipTests -X" (for release)
+        //                sh" mvn deploy -DaltDeploymentRepository=nexus::default::http://34.72.222.210:8081/repository/my-usecase1-snapshot/ -DskipTests -X" //for snapshot
                         
 
-                    }
+        //             }
+        //         }
+        //    }
+        // }
+
+        stage('Build Docker Image') {
+            steps {
+                script{
+                withDockerRegistry([credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/']) {
+                sh "docker build -t $DOCKER_HUB_USR/my-usecase1-demo:1.0 . "
                 }
-           }
-
+              }
+            }
         }
-
     }
 }
+
