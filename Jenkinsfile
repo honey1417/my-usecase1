@@ -68,7 +68,7 @@ pipeline {
               }
            }
         }
-
+        //the container exited due to some issue so created another pipeline to fetch the latest jar file
         stage('Run the Container in Docker') {
             steps {
                 script {
