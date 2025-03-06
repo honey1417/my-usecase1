@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        SONARQUBE_URL = "http://34.66.4.120:9000/"
+        SONARQUBE_URL = "http://35.184.36.107:9000/"
         SONARQUBE_TOKEN = credentials ('sonar-token')
         GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-creds')
         GCP_REGION = 'us-central1'  // Change if your Artifact Registry is in a different region
