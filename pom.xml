@@ -46,7 +46,7 @@
     </distributionManagement>
 
     <properties>
-        <sonar.host.url>http://34.66.4.120:9000/</sonar.host.url>
+        <sonar.host.url>http://35.184.36.107:9000/</sonar.host.url>
         <sonar.projectKey>sonarqube-demo</sonar.projectKey>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
