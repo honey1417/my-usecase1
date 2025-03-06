@@ -69,18 +69,15 @@ pipeline {
            }
         }
 
-        stage ('Run the Container in Docker') {
+        stage('Run the Container in Docker') {
             steps {
-                script{
-                withDockerRegistry([credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/']) {
-                sh "docker run -d -p 8083:8084 --name my-usecase-cont $DOCKER_HUB_USR/my-usecase1-demo:1.0
-"
+                script {
+                    withDockerRegistry([credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/']) {
+                        sh "docker run -d -p 8083:8084 --name my-usecase-cont $DOCKER_HUB_USR/my-usecase1-demo:1.0"
+                    }
                 }
-              }
-           }
+            }
         }
-
-
 
     }
 }
