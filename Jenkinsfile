@@ -61,8 +61,12 @@ pipeline {
 
         stage ('Push to Docker Hub') {
             steps {
+                script{
+                withDockerRegistry([credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/']) {
                 sh "docker push $DOCKER_HUB_USR/my-usecase1-demo:1.0"
-            }
+                }
+              }
+           }
         }
     }
 }
