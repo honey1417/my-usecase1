@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('Build & Test') {
+        stage('Build & Test Maven') {
             steps {
                 sh 'mvn --version'
                 sh 'mvn clean verify'
@@ -56,6 +56,12 @@ pipeline {
                 sh "docker build -t $DOCKER_HUB_USR/my-usecase1-demo:1.0 . "
                 }
               }
+            }
+        }
+
+        stage ('Push to Docker Hub') {
+            steps {
+                sh "docker push $DOCKER_HUB_USR/my-usecase1-demo:1.0"
             }
         }
     }
