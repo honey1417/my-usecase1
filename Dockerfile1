@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y curl jq && \
     curl -u $NEXUS_USER:$NEXUS_PASS -o /app/app.jar $NEXUS_REPO_URL$GROUP_ID/$VERSION/$LATEST_JAR
 
 # Expose the port your app runs on
-EXPOSE 8090
+EXPOSE 8084
 
 # Run the JAR
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
