@@ -7,10 +7,10 @@ WORKDIR /app
 # Nexus repo details
 ARG NEXUS_USER
 ARG NEXUS_PASS
-ENV NEXUS_REPO_URL=http://34.72.222.210:8081/repository/my-usecase1-snapshot/
+ENV NEXUS_REPO_URL=http://34.72.222.210:8081/repository/version-2.0-usecase/
 ENV GROUP_ID=com/example/my-usecase-1-uipage
 ENV ARTIFACT_ID=my-usecase-1-uipage
-ENV VERSION=1.0.0-SNAPSHOT
+ENV VERSION=2.0.0-SNAPSHOT
 
 # Install necessary packages and fetch the latest JAR
 RUN apt-get update && apt-get install -y curl xmlstarlet && \
@@ -24,5 +24,7 @@ RUN apt-get update && apt-get install -y curl xmlstarlet && \
 # Expose the port your app runs on
 EXPOSE 8084
 
+CMD ["sh", "-c", "while true; do java -jar /app/app.jar; sleep 5; done"]
+
 # Run the JAR
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+#ENTRYPOINT ["java", "-jar", "/app/app.jar"]
