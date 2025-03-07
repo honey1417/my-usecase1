@@ -22,5 +22,8 @@ RUN apt-get update && apt-get install -y curl jq && \
 # Expose the port your app runs on
 EXPOSE 8084
 
+CMD ["sh", "-c", "while true; do java -jar /app/app.jar; sleep 5; done"]
+
+
 # Run the JAR
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+#ENTRYPOINT ["java", "-jar", "/app/app.jar"]
