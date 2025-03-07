@@ -55,7 +55,7 @@ pipeline {
                     withDockerRegistry([credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/']) {
                         withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
                             sh """
-                            docker build --no-cache -t $DOCKER_REPO:1.1 \
+                            docker build --no-cache -t $DOCKER_REPO:1.0 \
                               --build-arg NEXUS_USER=$NEXUS_USR \
                               --build-arg NEXUS_PASS=$NEXUS_PSW \
                               -f Dockerfile .
@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script{
                 withDockerRegistry([credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/']) {
-                sh "docker push $DOCKER_REPO:1.1"
+                sh "docker push $DOCKER_REPO:1.0"
                 }
               }
            }
