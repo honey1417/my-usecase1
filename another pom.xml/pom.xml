@@ -56,7 +56,7 @@
 
     <properties>
         <sonar.host.url>http://35.184.36.107:9000/</sonar.host.url>
-        <sonar.projectKey>CI-pipeline-harness</sonar.projectKey>
+        <sonar.projectKey>sonarqube-demo</sonar.projectKey>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
