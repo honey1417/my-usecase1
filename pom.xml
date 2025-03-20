@@ -9,6 +9,8 @@
     <packaging>jar</packaging>
 
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <sonar.java.binaries>${project.build.outputDirectory}</sonar.java.binaries>
     </properties>
 
@@ -24,8 +26,21 @@
             <version>3.2.1</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
+            <!-- Compiler Plugin for Java Version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -38,6 +53,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- SonarQube Plugin -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
