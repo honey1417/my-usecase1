@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harness-uc1-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      platform: harness
+  template:
+    metadata:
+      labels:
+        platform: harness
+    spec:
+      containers:
+      - name: harness-container
+        image: harshini1402/harness-demo-repo:1.0
+        ports:
+        - containerPort: 8084
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: harness-uc1-service
+spec:
+  selector:
+    project: usecase-1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8084
+  type: LoadBalancer #Exposes the app to external Traffic
