@@ -9,7 +9,7 @@ resource "google_container_node_pool" "primary_nodes" {
   name       = "primary-node-pool"
   cluster    = google_container_cluster.primary.name
   location   = var.region
-  node_locations      = ["us-central1-a"]
+  node_locations      = ["us-central1-f"]
   initial_node_count = var.NODE_COUNT
   node_config {
     machine_type = var.MACHINE_TYPE
