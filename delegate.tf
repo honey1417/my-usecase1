@@ -41,7 +41,4 @@ module "delegate" {
   replicas = 1
   upgrader_enabled = true
   depends_on = [google_container_cluster.primary]
-  providers = {
-    helm = helm
-  }
 }
