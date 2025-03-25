@@ -19,7 +19,7 @@ variable "cluster_name"{
 variable "MACHINE_TYPE" {
     description = "machine type for nodes of cluster"
     type = string
-    default = "e2-medium"
+    default = "e2-standard-4"
 }
 
 variable "NODE_COUNT"{
