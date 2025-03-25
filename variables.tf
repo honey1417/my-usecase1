@@ -4,16 +4,16 @@ variable "PROJECT_ID" {
     default = "harshini-project-452710"
 }
 
-variable "GKE_REGION"{
+variable "region"{
     description = "default region where resources will be created"
     type = string
     default = "us-central1"
 }
 
-variable "GKE_CLUSTER"{
+variable "cluster_name"{
     description = "name of GKE cluster"
     type = string
-    default = "usecase-1-cluster"
+    default = "harness-cluster"
 }
 
 variable "MACHINE_TYPE" {
