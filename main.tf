@@ -6,7 +6,7 @@ resource "google_container_cluster" "primary" {
     initial_node_count = var.NODE_COUNT
     node_config {
         machine_type = var.MACHINE_TYPE 
-        disk_size_gb = 30
+        disk_size_gb = 70
         oauth_scopes = [
             "https://www.googleapis.com/auth/cloud-platform"
         ]
