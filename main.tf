@@ -2,7 +2,7 @@ resource "google_container_cluster" "primary" {
     name = var.cluster_name
     location = var.region
     deletion_protection = false
-    remove_default_node_pool = false
+    remove_default_node_pool = true
     initial_node_count = var.NODE_COUNT
     node_config {
         machine_type = var.MACHINE_TYPE 
