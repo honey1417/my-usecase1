@@ -32,11 +32,11 @@ module "delegate" {
 
   account_id = "ucHySz2jQKKWQweZdXyCog"
   delegate_token = "NTRhYTY0Mjg3NThkNjBiNjMzNzhjOGQyNjEwOTQyZjY="
-  delegate_name = "terraform-delegate-harshini"
+  delegate_name = "harshini-delegate"
   deploy_mode = "KUBERNETES"
   namespace = "harness-delegate-ng"
   manager_endpoint = "https://app.harness.io"
-  delegate_image = "harness/delegate:25.02.85300"
+  delegate_image = "harness/delegate:25.03.85403"
   replicas = 1
   upgrader_enabled = true
   depends_on = [google_container_cluster.primary]
