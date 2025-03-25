@@ -13,7 +13,7 @@ variable "region"{
 variable "cluster_name"{
     description = "name of GKE cluster"
     type = string
-    default = "harness-cluster-1"
+    default = "harness-cluster"
 }
 
 variable "MACHINE_TYPE" {
@@ -25,5 +25,5 @@ variable "MACHINE_TYPE" {
 variable "NODE_COUNT"{
     description = "number of nodes"
     type = number
-    default = 1
+    default = 2
 }
