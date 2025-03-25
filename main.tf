@@ -2,7 +2,8 @@ resource "google_container_cluster" "primary" {
   name               = var.cluster_name
   location           = var.region
   deletion_protection = false
-  remove_default_node_pool = true  # initial_node_count is ignored when the default node pool is removed.
+  remove_default_node_pool = true # initial_node_count is ignored when the default node pool is removed.
+  initial_node_count       = var.NODE_COUNT 
 }
 
 resource "google_container_node_pool" "primary_nodes" {
