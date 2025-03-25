@@ -2,8 +2,8 @@
 data "google_client_config" "default" {}
 
 data "google_container_cluster" "gke_cluster" {
-  name     = var.GKE_CLUSTER
-  location = var.GKE_REGION  # Change as per your cluster
+  name     = var.cluster_name
+  location = var.region # Change as per your cluster
   depends_on = [google_container_cluster.primary]
 }
 
@@ -32,7 +32,7 @@ module "delegate" {
 
   account_id = "ucHySz2jQKKWQweZdXyCog"
   delegate_token = "NTRhYTY0Mjg3NThkNjBiNjMzNzhjOGQyNjEwOTQyZjY="
-  delegate_name = "harshini-delegate"
+  delegate_name = "terraform-delegate-harshini"
   deploy_mode = "KUBERNETES"
   namespace = "harness-delegate-ng"
   manager_endpoint = "https://app.harness.io"
