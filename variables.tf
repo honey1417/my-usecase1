@@ -25,5 +25,5 @@ variable "MACHINE_TYPE" {
 variable "NODE_COUNT"{
     description = "number of nodes"
     type = number
-    default = 2
+    default = 1
 }
